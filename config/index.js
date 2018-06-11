@@ -37,8 +37,8 @@ module.exports = {
   },
 
   build: {
-    // Template for index.php
-    index: path.resolve(__dirname, '../dist/index.php'),
+    // Template for index.html
+    index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),

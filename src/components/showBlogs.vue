@@ -1,6 +1,6 @@
 <template>
     <div id="show-blogs">
-        <h1>All Blog Articles</h1>
+        <h1>Some interesting stuff</h1>
         <input type="text"  v-model="search" placeholder="Search blog">
       <!--<div v-for="post in posts">{{ post.title }}</div>-->
        <div v-for="post in filteredBlogs " class="single-blog">
