@@ -33,10 +33,9 @@
 
 <script>
 
-  import VueSession from 'vue-session'
   import sweetalert from 'sweetalert'
 
-  Vue.use(VueSession);
+
   export default {
 
     data: function () {

@@ -55,6 +55,11 @@ var router = new VueRouter({
     mode: 'history'
 });
 
+var options = {
+  persist: true
+}
+
+Vue.use(VueSession, options)
 
 /*
 router.beforeEach((to, from, next) => {
