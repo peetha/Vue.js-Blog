@@ -10,16 +10,34 @@
                     </div>
                     <div class="card-content">
                         <form v-on:submit.prevent>
+                          <div class="field">
+                            <label class="label">First Name</label>
+                            <div class="control">
+                              <input class="input" type="text" placeholder="First Name" v-model="newUser.firstName">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <label class="label">Last Name</label>
+                            <div class="control">
+                              <input class="input" type="text" placeholder="Last Name" v-model="newUser.lastName">
+                            </div>
+                          </div>
+                          <div class="field">
+                            <label class="label">Username</label>
+                            <div class="control">
+                              <input class="input" type="text" placeholder="Username" v-model="newUser.username">
+                            </div>
+                          </div>
                             <div class="field">
                                 <label class="label">Email</label>
                                 <div class="control">
-                                    <input class="input" type="email" placeholder="Email" v-model="email">
+                                    <input class="input" type="email" placeholder="Email" v-model="newUser.email">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Password</label>
                                 <div class="control">
-                                    <input class="input" type="password" placeholder="Password" v-model="password">
+                                    <input class="input" type="password" placeholder="Password" v-model="newUser.password">
                                 </div>
                             </div>
                             <button type="submit" class="button is-primary" v-on:click="signUp">Sign-up</button>
@@ -33,31 +51,45 @@
 </template>
 
 <script>
-    // import Firebase from 'firebase'
+
     import sweetalert from 'sweetalert'
 
     export default {
-        data: function () {
-            return {
-                email: '',
-                password: ''
-            }
-        },
+      data: function () {
+        return {
+          newUser:
+            {firstName: "", lastName: "", username: "", email: "", password: ""}
+        }
+      },
         methods: {
-            /*signUp: function () {
-                Firebase.auth()
-                    .createUserWithEmailAndPassword(this.email, this.password).then(
-                        (user) => {
-                            sweetalert('Signed up successfully', '', 'success');
-                            this.$router.replace('/');
 
-                        },
-                        (err) => {
-                            sweetalert('Oops. ' +err.message, '', 'error');
-                            //alert('Oops. ' + err.message)
-                        }
-                    );
-            }*/
+          signUp:function(){
+
+            var formData = this.toFormData(this.newUser);
+            axios.post("http://localhost/Blog/api.php?action=create", formData)
+
+              .then(function(response){
+                //console.log(response.data.message);
+               // this.newUser = {firstName: "", lastName: "", username: "", email: "", password: ""};
+                if (response.data.error) {
+                  //app.errorMessage = response.data.message;
+                  sweetalert(response.data.message, '', 'error')
+                }else{
+                  sweetalert('Registered successfully', '', 'success')
+                 // app.successMessage = response.data.message;
+                 // app.getAllUsers();
+                }
+              });
+          },
+          toFormData: function (obj) {
+            var form_data = new FormData();
+            for (var key in obj) {
+              form_data.append(key, obj[key]);
+            }
+            return form_data;
+          },
+
+
         }
     }
 </script>

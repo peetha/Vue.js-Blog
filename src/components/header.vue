@@ -2,10 +2,10 @@
     <nav>
         <ul>
             <li><router-link to="/" exact>Home</router-link></li>
-            <li><router-link to="/add" exact >Add a new blog</router-link></li><!--only if the user is logged in    v-if="user"   -->
-            <li><router-link to="/sign-in" exact>Sign In</router-link></li>  <!-- v-if="!user -->
-            <li><router-link to="/sign-up" exact>Sign Up</router-link></li> <!--  v-if="!user"-->
-            <a v-on:click="signOut" >Sign Out</a> <!-- v-if="user" -->
+            <li><router-link to="/add"  exact >Add a new blog</router-link></li><!--only if the user is logged in    v-if="user"   -->
+            <li><router-link to="/sign-in"  exact>Sign In</router-link></li>  <!-- v-if="!user -->
+            <li><router-link to="/sign-up"  exact>Sign Up</router-link></li> <!--  v-if="!user"-->
+            <a v-on:click="signOut">Sign Out</a> <!-- v-if="user" -->
         </ul>
     </nav>
 </template>
@@ -15,9 +15,9 @@
 
     export default {
       computed: {
-        /*user() {
-          return this.$store.getters.getUser;
-        }*/
+        user() {
+          //return this.$store.getters.getUser;
+        }
       },
       methods: {
         signOut: function () {

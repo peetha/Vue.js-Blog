@@ -11,15 +11,15 @@
                     <div class="card-content">
                         <form v-on:submit.prevent>
                             <div class="field">
-                                <label class="label">Email</label>
+                                <label class="label">Username</label>
                                 <div class="control">
-                                    <input class="input" type="email" placeholder="Your Email" v-model="email">
+                                    <input class="input" type="text" placeholder="Your username" v-model="logDetails.username">
                                 </div>
                             </div>
                             <div class="field">
                                 <label class="label">Password</label>
                                 <div class="control">
-                                    <input class="input" type="password" v-model="password" placeholder="Password">
+                                    <input class="input" type="password" v-model="logDetails.password" placeholder="Password">
                                 </div>
                             </div>
                             <button type="submit" class="button is-primary" v-on:click="signIn">Sign In</button>
@@ -32,36 +32,69 @@
 </template>
 
 <script>
-   // import Firebase from 'firebase'
-    import sweetalert from 'sweetalert'
 
-    export default {
-       data: function () {
-           return {
-               email: '',
-               password: ''
-           }
-       },
-        methods: {
-          /* signIn: function () {
-               Firebase.auth()
-                   .signInWithEmailAndPassword(this.email, this.password)
-                   .then( (user) => {
-                           this.$router.replace('/');
-                       },
-                       () => {
-                           sweetalert('Incorrect email or password', '', 'error')
-                       }
-                   );
-           }*/
+  import VueSession from 'vue-session'
+  import sweetalert from 'sweetalert'
+
+  Vue.use(VueSession);
+  export default {
+
+    data: function () {
+      return {
+        //successMessage: "",
+        //errorMessage: "",
+        logDetails: {username: '', password: ''}
+      }
+    },
+    methods: {
+      signIn: function () {
+        var logForm = this.toFormData(this.logDetails);
+        axios.post("http://localhost/Blog/login.php", logForm)         //, logForm
+          .then(function (response) {
+            console.log(response);
+            if (response.data.error) {
+              sweetalert(response.data.message, '', 'error');
+             //this.clearMessage();
+            }
+            else {
+              sweetalert(response.data.message, '', 'success');
+              this.$session.start();
+              this.$session.set('user', response.data.id);
+              console.log(this.$session )
+             // window.location.href = "/";
+              //this.$router.replace('/');
+              //this.$router.push("/");
+
+              //this.clearMessage();
+              //this.successMessage = response.data.message;
+              //this.logDetails = {username: '', password: ''};
+            }
+          })
+      /*.then(() => {
+          this.$router.replace('/');
+        });*/
+
+
+      },
+      toFormData: function (obj) {
+        var form_data = new FormData();
+        for (var key in obj) {
+          form_data.append(key, obj[key]);
         }
+        return form_data;
+      },
+      clearMessage: function () {
+       // this.errorMessage = '';
+       // this.successMessage = '';
+      }
     }
+  }
 </script>
 
 <style scoped>
-    .form{
-        margin-left: 700px;
-        margin-right: -500px;
-    }
+  .form{
+    margin-left: 700px;
+    margin-right: -500px;
+  }
 
 </style>

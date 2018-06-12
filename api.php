@@ -35,19 +35,29 @@ if (isset($_GET['post_id'])) {
 //var_dump($res);
 //var_dump($res/*['posts']*/);
 
-/*if ($action == 'create') {
+if ($action == 'create') {
+
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
   $username = $_POST['username'];
   $email = $_POST['email'];
-  $mobile = $_POST['mobile'];
-  $result = $conn->query("INSERT INTO `users` (`username`, `email`, `mobile`) VALUES ('$username', '$email', '$mobile') ");
-  if ($result) {
-    $res['message'] = "User Added successfully";
-  } else{
+  $password = md5($_POST['password']);
+  if ($firstName == '' || $lastName == '' || $username == '' || $email == '' || $password == '') {
     $res['error'] = true;
-    $res['message'] = "Insert User fail";
+    $res['message'] = "Please complete all fields";
   }
+  if ($res['error'] == false) {
+    $result = $conn->query("INSERT INTO `users` (`firstName`, `lastName`, `username`, `email`, `password`) VALUE  ('$firstName', '$lastName', '$username', '$email', '$password')");
+    if ($result) {
+      //$res['message'] = "User Added successfully";
+    } else {
+      $res['error'] = true;
+      $res['message'] = "Insert User fail";
+    }
+  }
+
 }
-if ($action == 'update') {
+/*if ($action == 'update') {
   $id = $_POST['id'];
   $username = $_POST['username'];
   $email = $_POST['email'];

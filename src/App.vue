@@ -42,13 +42,13 @@
 
         },
         methods: {
-           /* setUser: function () {
-                this.$store.dispatch('setUser');
-            }*/
+            setUser: function () {
+                //this.$store.dispatch('setUser');
+            }
 
         },
         created() {
-          //  this.setUser();
+         // this.setUser();
         }
     }
   //  Vue.component(VmBackTop.name, VmBackTop)

@@ -9,11 +9,14 @@ import Routes from './routes'
 //import { store } from './store/store'
 import VuejsDialog from 'vuejs-dialog'
 // import Axios from 'vue-axios'
+import VueSession from 'vue-session'
+
 
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
 Vue.use(VuejsDialog);
+Vue.use(VueSession);
 // Vue.use(Axios);
 
 
@@ -47,7 +50,7 @@ Vue.filter('snippet', function (value) {
 Firebase.initializeApp(config);*/
 
 
-const router = new VueRouter({
+var router = new VueRouter({
     routes: Routes,
     mode: 'history'
 });

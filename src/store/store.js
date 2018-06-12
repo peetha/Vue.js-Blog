@@ -1,4 +1,5 @@
 /*
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import Firebase from 'firebase'
@@ -15,14 +16,30 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
-       /!* setUser: state => {
-            state.user = Firebase.auth().currentUser;
-        }*!/
+        setUser: state => {
+          var logForm = this.toFormData(this.logDetails);
+          axios.post("http://localhost/Blog/login.php", logForm)
+              .then(function (response) {
+                state.user = response.data.id;
+              })
+
+           // state.user = Firebase.auth().currentUser;
+        }
     },
     actions: {
-       /!* setUser: context => {
+        setUser: context => {
             context.commit('setUser');
-        }*!/
+        }
+    },
+  methods: {
+    toFormData: function (obj) {
+      const form_data = new FormData();
+      for (let key in obj) {
+        form_data.append(key, obj[key]);
+      }
+      return form_data;
     }
+  }
 });
+
 */

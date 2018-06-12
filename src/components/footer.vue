@@ -1,6 +1,8 @@
 <template>
     <footer>
-        <p>©2018 Pete All rights reserved</p>
+      <div>
+      ©2018<a href="https://github.com/peetha"> Pete</a> All rights reserved
+      </div>
     </footer>
 </template>
 

@@ -1,5 +1,6 @@
 <?php
-session_status();
+header('Access-Control-Allow-Origin: *');
+//session_start();
 
 $conn = new mysqli("localhost", "root", "Ikon@1234!", "blog");
 
@@ -10,7 +11,7 @@ if ($conn->connect_error) {
 $res = array('error' => false);
 
 $username = $_POST['username'];
-$password = $_POST['password'];
+$password = md5($_POST['password']);
 if ($username == '') {
   $res['error'] = true;
   $res['message'] = "Username is required";
@@ -18,12 +19,14 @@ if ($username == '') {
   $res['error'] = true;
   $res['message'] = "Password is required";
 } else {
-  $sql = "SELECT * FROM `users` WHERE `usrname` = '$username' AND `password` = '$password'";
+  $sql = "SELECT * FROM `users` WHERE `username` = '$username' AND `password` = '$password'";
   $query = $conn->query($sql);
   if ($query->num_rows > 0) {
     $row = $query->fetch_array();
     $_SESSION['user'] = $row['id'];     // $row['userid'];
     $res['message'] = "Login successful";
+    $res['id'] = $row['id'];
+    $res['username'] = $username;
 
   } else {
     $res['error'] = true;
