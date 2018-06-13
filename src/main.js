@@ -6,7 +6,7 @@ import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import Routes from './routes'
 //import Firebase from 'firebase'
-//import { store } from './store/store'
+import { store } from './store/store'
 import VuejsDialog from 'vuejs-dialog'
 // import Axios from 'vue-axios'
 import VueSession from 'vue-session'
@@ -57,12 +57,12 @@ var router = new VueRouter({
 
 var options = {
   persist: true
-}
+};
 
-Vue.use(VueSession, options)
+Vue.use(VueSession, options);
 
-/*
-router.beforeEach((to, from, next) => {
+
+/*router.beforeEach((to, from, next) => {
     const currentUser = Firebase.auth().currentUser;
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     if (requiresAuth && !currentUser) {
@@ -73,9 +73,18 @@ router.beforeEach((to, from, next) => {
         next();
     }
 
-});
-*/
+});*/
 
+/*router.beforEach((to, from, next) => {
+  const reqSession = to.matched.some(route => route.meta.requiresSession);
+  if (!reqSession) next('/sign-in');
+
+  if (router.$session.exists()) {
+    next()
+  } else {
+    next(/!*{ name: 'loginPage' }*!/)
+  }
+});*/
 
 
 /* eslint-disable no-new */
@@ -84,7 +93,7 @@ router.beforeEach((to, from, next) => {
 
     new Vue({
         el: '#app',
-        //store: store,
+        store: store,
         components: {App},
         template: '<App/>',
         router: router

@@ -32,7 +32,7 @@
     },
     methods: {
       getAllPosts: function () {
-
+      //console.log(this.$store.state.isLogged);
 
         axios.get("http://localhost/Blog/api.php?action=read")           //**     AICI E DE LUCRU WITH THIS JSON            **/
           .then((response) => {

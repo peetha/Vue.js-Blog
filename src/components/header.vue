@@ -1,41 +1,38 @@
 <template>
-    <nav>
-        <ul>
-            <li><router-link to="/" exact>Home</router-link></li>
-            <li><router-link to="/add"  exact >Add a new blog</router-link></li><!--only if the user is logged in    v-if="user"   -->
-            <li><router-link to="/sign-in"  exact>Sign In</router-link></li>  <!-- v-if="!user -->
-            <li><router-link to="/sign-up"  exact>Sign Up</router-link></li> <!--  v-if="!user"-->
-            <a v-on:click="signOut">Sign Out</a> <!-- v-if="user" -->
-        </ul>
-    </nav>
+  <nav>
+    <div v-if="$store.state.isLogged">
+      <ul>
+        <li><router-link to="/" exact>Home</router-link></li>
+        <li><router-link to="/add" >Add a new blog</router-link></li>
+        <a v-on:click="signOut()">Sign Out </a>
+      </ul>
+    </div>
+    <div v-if="!$store.state.isLogged">
+      <ul>
+
+        <li><router-link to="/" exact>Home</router-link></li>
+        <li><router-link to="/sign-in">Sign In</router-link></li>  <!-- v-if="!user -->
+        <li><router-link to="/sign-up">Sign Up</router-link></li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
 <script>
-    // import Firebase from 'firebase'
 
     export default {
-      computed: {
-        user() {
-          //return this.$store.getters.getUser;
-        }
-      },
-      methods: {
-        signOut: function () {
-          /*    this.$dialog.confirm('Are you sure ypu want to log out?')
-                    .then(function () {
-                        Firebase.auth()
-                            .signOut()
-                            .then(() => {
-                                this.$router.replace('/');
-                            });
-                    })
-                    .catch(function () {
-                        console.log('Clicked on cancel')
-                    });
 
-            }*/
+      methods: {
+        signOut: function() {
+          //let self = this;
+          //this.$session.start();
+          //console.log(this.$session.exists());
+          this.$session.destroy();
+          this.$router.replace("/");
+          this.$store.dispatch('unsetIsLogged', false);
         }
-      }
+        }
+
     }
 </script>
 

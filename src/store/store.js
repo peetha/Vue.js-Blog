@@ -1,4 +1,4 @@
-/*
+
 
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -8,28 +8,31 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        user: null
+      isLogged: JSON.parse(localStorage.getItem('isLogged')),
+        // user: null
     },
     getters: {
-        getUser: state => {
-            return state.user;
-        }
-    },
-    mutations: {
-        setUser: state => {
-          var logForm = this.toFormData(this.logDetails);
-          axios.post("http://localhost/Blog/login.php", logForm)
-              .then(function (response) {
-                state.user = response.data.id;
-              })
-
-           // state.user = Firebase.auth().currentUser;
-        }
-    },
+      // getIsLogged: state => {
+      //   console.log(localStorage.getItem('isLogged'))
+      //       return localStorage.getItem('isLogged');
+      //   },
+    },/*
+  mutations: {
+    setIsLogged(state, {val}) {
+      localStorage.setItem('isLogged', val);
+    }
+  },
+*/
     actions: {
-        setUser: context => {
-            context.commit('setUser');
-        }
+      // isLoggedd: ({ commit }, isLogged) => (commit('setIsLogged', {isLogged} ))
+      setIsLogged() {
+        localStorage.setItem('isLogged', true)   //aici tre o functie pt ambele metode, in functie de param .... ('isLogged', val)
+        this.state.isLogged = true;          //this.state.isLogged = val
+      },
+      unsetIsLogged() {
+        localStorage.setItem('isLogged', false);
+        this.state.isLogged = false;
+      },
     },
   methods: {
     toFormData: function (obj) {
@@ -42,4 +45,5 @@ export const store = new Vuex.Store({
   }
 });
 
-*/
+
+

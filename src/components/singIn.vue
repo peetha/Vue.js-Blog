@@ -32,12 +32,9 @@
 </template>
 
 <script>
-
   import sweetalert from 'sweetalert'
 
-
   export default {
-
     data: function () {
       return {
         //successMessage: "",
@@ -48,18 +45,23 @@
     methods: {
       signIn: function () {
         var logForm = this.toFormData(this.logDetails);
-        axios.post("http://localhost/Blog/login.php", logForm)         //, logForm
+        let self = this;
+          axios.post("http://localhost/Blog/login.php", logForm)         //, logForm
           .then(function (response) {
-            console.log(response);
+            //console.log(response);
+
             if (response.data.error) {
               sweetalert(response.data.message, '', 'error');
-             //this.clearMessage();
+
             }
             else {
+
               sweetalert(response.data.message, '', 'success');
-              this.$session.start();
-              this.$session.set('user', response.data.id);
-              console.log(this.$session )
+              self.$session.start();
+              self.$session.set('user', response.data.id);
+              //console.log(self.$session.get('user') );
+              self.$router.replace('/');
+              self.$store.dispatch('setIsLogged', true)
              // window.location.href = "/";
               //this.$router.replace('/');
               //this.$router.push("/");
@@ -68,12 +70,7 @@
               //this.successMessage = response.data.message;
               //this.logDetails = {username: '', password: ''};
             }
-          })
-      /*.then(() => {
-          this.$router.replace('/');
-        });*/
-
-
+          });
       },
       toFormData: function (obj) {
         var form_data = new FormData();

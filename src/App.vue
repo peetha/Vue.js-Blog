@@ -4,8 +4,6 @@
         <router-view ></router-view>
         <app-back-to-top style="margin-bottom: 30px;"></app-back-to-top>
         <app-footer></app-footer>
-
-
     </div>
 </template>
 
@@ -18,9 +16,6 @@
     import signUp from './components/signUp'
     import footer from './components/footer'
     import BackToTop from 'vue-back-top'
-    import Vue from 'vue'
-    import VueJsDialog from 'vuejs-dialog'
-
     export default {
 
         components :{
@@ -33,25 +28,8 @@
             'app-footer': footer,
             'app-back-to-top': BackToTop
 
-        },
-        data () {
-            return {
-
-
-            }
-
-        },
-        methods: {
-            setUser: function () {
-                //this.$store.dispatch('setUser');
-            }
-
-        },
-        created() {
-         // this.setUser();
         }
     }
-  //  Vue.component(VmBackTop.name, VmBackTop)
 </script>
 
 <style>

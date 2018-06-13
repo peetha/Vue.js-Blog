@@ -64,7 +64,7 @@
         methods: {
 
           signUp:function(){
-
+            let self = this;
             var formData = this.toFormData(this.newUser);
             axios.post("http://localhost/Blog/api.php?action=create", formData)
 
@@ -75,7 +75,10 @@
                   //app.errorMessage = response.data.message;
                   sweetalert(response.data.message, '', 'error')
                 }else{
-                  sweetalert('Registered successfully', '', 'success')
+                  sweetalert('Registered successfully', '', 'success');
+                  self.$router.replace('/');
+
+                  //this.$router.push("/");
                  // app.successMessage = response.data.message;
                  // app.getAllUsers();
                 }

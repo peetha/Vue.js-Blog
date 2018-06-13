@@ -8,5 +8,6 @@ export default [
     {path: '/add', component: addBlog},
     {path: '/blog/:id', component: singleBlog},
     {path: '/sign-in', component: singIn},
-    {path: '/sign-up', component: signUp}
+    {path: '/sign-up', component: signUp},
+
 ]
