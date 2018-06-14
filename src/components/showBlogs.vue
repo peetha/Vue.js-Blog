@@ -9,7 +9,7 @@
 
         <router-link v-bind:to="'/blog/' + post.id"><h2 v-rainbow>{{ post.title }}</h2></router-link>
          <article>{{ post.content | snippet }}</article>
-         <h2 class="author">{{post.author}}</h2>
+         <h2 class="author">By {{post.author}}</h2>
         </div>
     </div>
 </template>

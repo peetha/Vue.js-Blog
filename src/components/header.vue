@@ -1,20 +1,12 @@
 <template>
   <nav>
-    <div v-if="$store.state.isLogged">
       <ul>
         <li><router-link to="/" exact>Home</router-link></li>
-        <li><router-link to="/add" >Add a new blog</router-link></li>
-        <a v-on:click="signOut()">Sign Out </a>
+        <li><router-link v-if="!$store.state.isLogged" to="/sign-in">Sign In</router-link></li>  <!-- v-if="!user -->
+        <li><router-link v-if="!$store.state.isLogged" to="/sign-up">Sign Up</router-link></li>
+        <li><router-link v-if="$store.state.isLogged" to="/add" >Add a new blog</router-link></li>
+        <li v-if="$store.state.isLogged" v-on:click="signOut()">Sign Out </li>
       </ul>
-    </div>
-    <div v-if="!$store.state.isLogged">
-      <ul>
-
-        <li><router-link to="/" exact>Home</router-link></li>
-        <li><router-link to="/sign-in">Sign In</router-link></li>  <!-- v-if="!user -->
-        <li><router-link to="/sign-up">Sign Up</router-link></li>
-      </ul>
-    </div>
   </nav>
 </template>
 
@@ -24,12 +16,9 @@
 
       methods: {
         signOut: function() {
-          //let self = this;
-          //this.$session.start();
-          //console.log(this.$session.exists());
           this.$session.destroy();
           this.$router.replace("/");
-          this.$store.dispatch('unsetIsLogged', false);
+          this.$store.dispatch({type:'setIsLogged', val:false});
         }
         }
 
@@ -42,9 +31,17 @@
         text-align: center;
         margin: 0;
     }
-    li {
+    li  {
         display: inline-block;
         margin: 0 10px;
+      color: #fff;
+    }
+    a:hover {
+
+      color: darkcyan;
+    }
+    li:hover {
+      color: darkcyan;
     }
     a {
         color: #fff;
@@ -57,13 +54,4 @@
         padding: 14px 0;
         margin-bottom: 40px;
     }
-    .router-link-active {
-        background: #eee;
-        color: #444;
-    }
-   /* .logout{
-        background: #eee;
-        color: #444;
-    }*/
-
 </style>

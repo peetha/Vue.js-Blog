@@ -37,8 +37,6 @@
   export default {
     data: function () {
       return {
-        //successMessage: "",
-        //errorMessage: "",
         logDetails: {username: '', password: ''}
       }
     },
@@ -48,27 +46,16 @@
         let self = this;
           axios.post("http://localhost/Blog/login.php", logForm)         //, logForm
           .then(function (response) {
-            //console.log(response);
-
             if (response.data.error) {
               sweetalert(response.data.message, '', 'error');
 
             }
             else {
-
               sweetalert(response.data.message, '', 'success');
               self.$session.start();
               self.$session.set('user', response.data.id);
-              //console.log(self.$session.get('user') );
               self.$router.replace('/');
-              self.$store.dispatch('setIsLogged', true)
-             // window.location.href = "/";
-              //this.$router.replace('/');
-              //this.$router.push("/");
-
-              //this.clearMessage();
-              //this.successMessage = response.data.message;
-              //this.logDetails = {username: '', password: ''};
+              self.$store.dispatch({type: 'setIsLogged', val: true})
             }
           });
       },
@@ -79,10 +66,6 @@
         }
         return form_data;
       },
-      clearMessage: function () {
-       // this.errorMessage = '';
-       // this.successMessage = '';
-      }
     }
   }
 </script>
